@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="utf-8">
+	<title>Ajout du Makeup</title>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+
+<body>
+	<div th:replace="template"></div>
+
+	<div class="container mt-5">
+		<div class="card">
+			<div class="card-header" th:if="${mode=='new'}">Ajout d'un Makeup</div>
+			<div class="card-header" th:if="${mode=='edit'}">Modifier un Makeup</div>
+
+			<div class="card-body">
+				<form th:action="@{/saveMakeup}" th:object="${makeup}" method="post">
+					<input  type="hidden"name="page" class="form-control" th:value="${page}" />
+					<input type="hidden"  name="size" class="form-control" th:value="${size}" />
+					<!-- Champ caché pour l'identifiant -->
+					<input type="hidden" th:field="*{id}" />
+
+					<!-- Nom -->
+					<div class="form-group">
+						<label class="control-label">Nom :</label>
+						<input type="text" th:field="*{nom}" class="form-control" />
+						<span th:errors="*{nom}" class="text-danger"></span>
+					</div>
+
+					<!-- Marque -->
+					<div class="form-group">
+						<label class="control-label">Marque :</label>
+						<input type="text" th:field="*{marque}" class="form-control" />
+						<span th:errors="*{marque}" class="text-danger"></span>
+					</div>
+
+					<!-- Prix -->
+					<div class="form-group">
+						<label class="control-label">Prix :</label>
+						<input type="text" th:field="*{prix}" class="form-control" />
+						<span th:errors="*{prix}" class="text-danger"></span>
+					</div>
+
+					<!-- Type de Makeup -->
+					<div class="form-group">
+						<label class="control-label">Type de Makeup :</label>
+						<select th:field="*{type}" class="form-control">
+							<option value="">-- Sélectionner un type --</option>
+							<option value="visage">Visage</option>
+							<option value="yeux">Yeux</option>
+							<option value="lèvres">Lèvres</option>
+							<option value="teint">Teint</option>
+							<option value="ongles">Ongles</option>
+							<option value="blush">Blush</option>
+						</select>
+						<span th:errors="*{type}" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Ligne de Marque :</label>
+
+						<!-- Si une ligne est déjà associée (mode edit) -->
+						<select name="brandLine" class="form-control" th:if="${!#strings.isEmpty(makeup.brandLine)}">
+							<option th:each="b : ${brandLines}" th:value="${b.idLigneMarque}" th:text="${b.nomLigne}"
+								th:selected="${b.idLigneMarque == makeup.brandLine.idLigneMarque}">
+							</option>
+						</select>
+
+						<!-- Si aucune ligne n'est encore sélectionnée (mode new) -->
+						<select name="brandLine" class="form-control" th:if="${#strings.isEmpty(makeup.brandLine)}">
+							<option value="">-- Choisir une ligne de marque --</option>
+							<option th:each="b : ${brandLines}" th:value="${b.idLigneMarque}" th:text="${b.nomLigne}">
+							</option>
+						</select>
+					</div>
+
+
+					<!-- Bouton valider -->
+					<div>
+						<button type="submit" class="btn btn-primary">Valider</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

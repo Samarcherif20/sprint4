@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title>Modifier Produit</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body>
+<div th:replace="template"></div>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">Modifier un Produit</div>
+        <div class="card-body">
+            <form th:action="@{/saveMakeup}" method="post" th:object="${makeup}">
+
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="form-group">
+                    <label>Nom :</label>
+                    <input type="text" th:field="*{nom}" class="form-control" required />
+                    <span th:errors="*{nom}" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Marque :</label>
+                    <input type="text" th:field="*{marque}" class="form-control" required />
+                    <span th:errors="*{marque}" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Prix :</label>
+                    <input type="number" step="0.01" th:field="*{prix}" class="form-control" required />
+                    <span th:errors="*{prix}" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Type :</label>
+                    <select th:field="*{type}" class="form-control" required>
+                        <option value="">-- Sélectionner --</option>
+                        <option value="Visage">Visage</option>
+                        <option value="Yeux">Yeux</option>
+                        <option value="Lèvres">Lèvres</option>
+                        <option value="Teint">Teint</option>
+                        <option value="Ongles">Ongles</option>
+                        <option value="Accessoires">Accessoires</option>
+                    </select>
+                    <span th:errors="*{type}" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

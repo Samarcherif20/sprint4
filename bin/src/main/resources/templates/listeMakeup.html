@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title>Liste des Produits de Maquillage</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body>
+<div th:replace="template"></div>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            Liste des Produits de Maquillage
+        </div>
+        <div class="card-body">
+
+            <!-- Table for displaying makeup products -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Marque</th>
+                        <th>Type</th>
+                        <th>Prix</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through the list of makeups -->
+                    <tr th:each="m : ${makeups.content}">
+                        <td th:text="${m.idMakeup}"></td>
+                        <td th:text="${m.nom}"></td>
+                        <td th:text="${m.marque}"></td>
+                        <td th:text="${m.type}"></td>
+                        <td th:text="${m.prix}"></td>
+                        <td><a class="btn btn-danger"onclick="return confirm('Etes-vous sûr ?')"th:href="@{supprimerMakeup(id=${m.idMakeup}, page=${currentPage}, size=${size})}">Supprimer</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <ul class="nav nav-pills">
+                <li th:each="page, status : ${pages}">
+                    <a th:class="${status.index == currentPage ? 'btn btn-primary' : 'btn'}"
+                       th:href="@{/ListeMakeup(page=${status.index}, size=${size})}"
+                       th:text="${status.index + 1}"></a> <!-- Pagination starts from 1 -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

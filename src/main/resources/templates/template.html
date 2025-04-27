@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<meta charset="utf-8">
+	<title>Gestion des Produits de Maquillage</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+	<!-- jQuery -->
+	<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" href="#">Gestion Maquillage</a>
+		<!-- Links -->
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" th:href="@{ListeMakeup}">Accueil</a>
+			</li>
+			<!-- Dropdown Produits -->
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+					Produits de Maquillage
+				</a>
+				<div class="dropdown-menu">
+					<a sec:authorize="hasAnyAuthority('ADMIN', 'AGENT')" class="dropdown-item"
+					th:href="@{showCreate}">Ajouter</a>
+					<a class="dropdown-item" th:href="@{ListeMakeup}">Lister les produits</a>
+				</div>
+			</li>
+
+		</ul>
+
+		<!-- User Actions -->
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						<span sec:authentication="name"></span>
+					</a>
+					<div class="dropdown-menu">
+						<a sec:authorize="!isAuthenticated()" class="dropdown-item" th:href="@{login}">login</a>
+						<a sec:authorize="isAuthenticated()" class="dropdown-item" th:href="@{logout}">logout</a>
+						<a class="dropdown-item" href="#">Profile</a>
+					</div>
+				</li>
+		</ul>
+	</nav>
+</body>
+
+</html>
