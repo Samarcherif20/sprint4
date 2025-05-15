@@ -46,11 +46,11 @@ public class Makeup implements Serializable {
         this.prix = prix;
     }
 
-    public Long getId() {
+    public Long getIdMakeup() {
         return idMakeup;
     }
 
-    public void setId(Long id) {
+    public void setIdMakeup(Long id) {
         this.idMakeup = id;
     }
 

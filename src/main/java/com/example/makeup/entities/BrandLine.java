@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Data
 @NoArgsConstructor
@@ -20,14 +21,13 @@ public class BrandLine {
     private String nomLigne;      
     private String description;   
     private String publicCible;   
-    
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String dateLancement; 
-
-    @OneToMany(mappedBy = "brandLine")
-    private List<Makeup> makeups; 
     @JsonIgnore
     @OneToMany(mappedBy = "brandLine")
-    private List<Makeup> makeups1;
+    private List<Makeup> makeups; 
+    
+   
 }
 
 

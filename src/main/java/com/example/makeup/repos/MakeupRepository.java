@@ -14,7 +14,7 @@ import com.example.makeup.entities.Makeup;
 
 public interface MakeupRepository extends JpaRepository<Makeup, Long> {
 		List<Makeup> findByNom(String nom);
-		List<Makeup> findByNomContains(String nom);
+	    List<Makeup> findByNomContains(String nom);
 		@Query("select m from Makeup m where m.nom like %:nom% and m.prix > :prix")
 		List<Makeup> findByNomPrix(@Param("nom") String nom, @Param("prix") Double prix);
 		@Query("select m from Makeup m where m.brandLine = ?1")

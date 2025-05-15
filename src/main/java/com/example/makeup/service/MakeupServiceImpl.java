@@ -80,8 +80,7 @@ public class MakeupServiceImpl implements MakeupService {
 
 	@Override
 	public List<Makeup> findByNomContains(String nom) {
-		return makeupRepository.findByNomContains(nom) ;
-
+	    return makeupRepository.findByNomContains(nom);
 	}
 
 	@Override
